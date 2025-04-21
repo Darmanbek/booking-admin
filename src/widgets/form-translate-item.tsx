@@ -1,8 +1,9 @@
 import { Form, type FormItemProps, Segmented, Space } from "antd"
 import { type FC, useState } from "react"
 
-const FormTranslateItem: FC<FormItemProps> = (props) => {
+const FormTranslateItem: FC<FormItemProps> = ({ ...props }) => {
 	const [lang, setLang] = useState("ru")
+
 	return (
 		<>
 			<Form.Item

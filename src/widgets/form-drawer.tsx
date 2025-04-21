@@ -10,8 +10,8 @@ interface FormDrawerProps extends DrawerProps {
 	form: FormInstance
 	formKey?: FormKeys
 	formKeys?: FormKeys[]
-	loading?: boolean
-	success?: boolean
+	loading: boolean
+	success: boolean
 }
 
 const FormDrawer: FC<FormDrawerProps> = ({

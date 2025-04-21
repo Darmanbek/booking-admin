@@ -1,5 +1,5 @@
 import type { GetParams, ParamId } from "src/services/shared"
-import { useCrudQuery } from "src/shared/api"
+import { useCrudMutation, useCrudQuery } from "src/shared/api"
 import { locationsService } from "./locations.service"
 
 const useGetLocationsQuery = (params: GetParams = {}) => {
@@ -17,4 +17,37 @@ const useGetLocationBySlugQuery = (slug: ParamId) => {
 	})
 }
 
-export { useGetLocationsQuery, useGetLocationBySlugQuery }
+const useCreateLocationQuery = () => {
+	return useCrudMutation({
+		mutationFn: locationsService.createCities,
+		invalidate: {
+			queryKey: ["locations"]
+		}
+	})
+}
+
+const useEditLocationQuery = () => {
+	return useCrudMutation({
+		mutationFn: locationsService.editCities,
+		invalidate: {
+			queryKey: ["locations"]
+		}
+	})
+}
+
+const useDeleteLocationQuery = () => {
+	return useCrudMutation({
+		mutationFn: locationsService.deleteCities,
+		invalidate: {
+			queryKey: ["locations"]
+		}
+	})
+}
+
+export {
+	useGetLocationsQuery,
+	useGetLocationBySlugQuery,
+	useCreateLocationQuery,
+	useEditLocationQuery,
+	useDeleteLocationQuery
+}

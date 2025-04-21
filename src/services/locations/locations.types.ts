@@ -12,3 +12,11 @@ export type LocationCity = {
 	geocode_lng: number
 	geocode_lat: number
 }
+
+export type LocationCityChange = {
+	id?: number
+	name_ru: string
+	name_en: string
+	name_uz: string
+	name_kk: string
+}

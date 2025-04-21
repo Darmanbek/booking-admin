@@ -2,6 +2,7 @@ import { type FC, useState } from "react"
 import { useLocationsTableColumns } from "src/pages/locations/hooks"
 import { type LocationCity, useGetLocationsQuery } from "src/services/locations"
 import { Table } from "src/shared/ui"
+import { AddButton } from "src/widgets/add-button"
 
 const LocationsTable: FC = () => {
 	const [params, setParams] = useState({
@@ -23,6 +24,7 @@ const LocationsTable: FC = () => {
 			<Table<LocationCity>
 				rowKey={"id"}
 				dataSource={locations?.data}
+				extra={<AddButton />}
 				loading={isLoading || isFetching}
 				title={"Направления"}
 				columns={columns}
