@@ -22,21 +22,26 @@ class CategoriesService {
 	// }
 
 	create = async (
+		type: "hotel-categories" | "room-types" = "hotel-categories",
 		form: CategoryChange
 	): Promise<ResponseSingleData<Category>> => {
-		const response = await api.post(`/hotel-categories`, form)
+		const response = await api.post(`/${type}`, form)
 		return response.data
 	}
 
 	edit = async (
+		type: "hotel-categories" | "room-types" = "hotel-categories",
 		form: CategoryChange
 	): Promise<ResponseSingleData<Category>> => {
-		const response = await api.put(`/hotel-categories/${form.id}`, form)
+		const response = await api.put(`/${type}/${form.id}`, form)
 		return response.data
 	}
 
-	delete = async (id: ParamId): Promise<ResponseSingleData<void>> => {
-		const response = await api.delete(`/hotel-categories/${id}`)
+	delete = async (
+		type: "hotel-categories" | "room-types" = "hotel-categories",
+		id: ParamId
+	): Promise<ResponseSingleData<void>> => {
+		const response = await api.delete(`/${type}/${id}`)
 		return response.data
 	}
 }

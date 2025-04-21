@@ -8,6 +8,12 @@ export type Category = {
 
 export type CategoryChange = {
 	id?: number
-	name: string
-	description: string
+	description_ru: string
+	description_en: string
+	description_uz: string
+	description_kk: string
+	name_ru: string
+	name_en: string
+	name_uz: string
+	name_kk: string
 }

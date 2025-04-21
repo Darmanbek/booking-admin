@@ -1,11 +1,17 @@
 import { Tabs } from "antd"
-import { type FC } from "react"
+import { type FC, useState } from "react"
+import { CategoriesForm } from "./forms"
 import { CategoriesTable } from "./tables"
 
 const Categories: FC = () => {
+	const [type, setType] = useState<"hotels" | "rooms">("hotels")
+
 	return (
 		<>
+			<CategoriesForm type={type} />
 			<Tabs
+				activeKey={type}
+				onChange={(key) => setType(key as "hotels" | "rooms")}
 				items={[
 					{
 						key: "hotels",
