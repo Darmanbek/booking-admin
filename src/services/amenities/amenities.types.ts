@@ -16,16 +16,21 @@ export type HotelAmenity = {
 	is_popular: boolean
 	payment_type: string
 	hotel_amenity_category_id: number
+	room_amenity_category_id: number
 }
 
 export type AmenityChange = {
-	name: string
+	name_ru: string
+	name_en: string
+	name_uz: string
+	name_kk: string
 }
 
 export type HotelAmenityChange = {
 	id?: number
-	slug?: string
-	name: string
-	is_popular: boolean
-	payment_type: string
+	name_ru: string
+	name_en: string
+	name_uz: string
+	name_kk: string
+	is_popular?: boolean
 }

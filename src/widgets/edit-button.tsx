@@ -1,5 +1,5 @@
 import { EditOutlined } from "@ant-design/icons"
-import { Button } from "antd"
+import { Button, type ButtonProps } from "antd"
 import { useResponsive } from "antd-style"
 import { type FC } from "react"
 import {
@@ -8,26 +8,40 @@ import {
 	useFormDevtoolsStore
 } from "src/shared/store"
 
-interface EditButtonProps {
+interface EditButtonProps extends ButtonProps {
 	params?: FormParams
 	formKey?: FormKeys
-	disableFrom?: boolean
+	disableForm?: boolean
 }
 
-const EditButton: FC<EditButtonProps> = ({ params, formKey, disableFrom }) => {
+const EditButton: FC<EditButtonProps> = ({
+	params,
+	formKey,
+	disableForm,
+	...props
+}) => {
 	const { mobile = false } = useResponsive()
 	const setParams = useFormDevtoolsStore((state) => state.setParams)
 
 	const onChangeParams = () => {
-		if (disableFrom) return
+		if (disableForm) return
 		if (!params) return
 		setParams(params, formKey)
 	}
 
 	return (
 		<>
-			<Button type={"text"} icon={<EditOutlined />} onClick={onChangeParams}>
-				{mobile ? "" : "Редактировать"}
+			<Button
+				type={"text"}
+				icon={<EditOutlined />}
+				onClick={onChangeParams}
+				{...props}
+			>
+				{mobile
+					? ""
+					: props.children !== undefined
+						? props.children
+						: "Редактировать"}
 			</Button>
 		</>
 	)

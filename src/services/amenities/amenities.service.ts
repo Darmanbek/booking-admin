@@ -31,50 +31,60 @@ class AmenitiesService {
 	}
 
 	create = async (
+		type: "hotel" | "room" = "hotel",
 		form: HotelAmenityChange
 	): Promise<ResponseSingleData<Amenity>> => {
-		const response = await api.post(`/hotel-amenities/categories`, form)
+		const response = await api.post(`/${type}-amenities/categories`, form)
 		return response.data
 	}
 
 	edit = async (
+		type: "hotel" | "room" = "hotel",
 		form: HotelAmenityChange
 	): Promise<ResponseSingleData<Amenity>> => {
 		const response = await api.put(
-			`/hotel-amenities/categories/${form.id}`,
+			`/${type}-amenities/categories/${form.id}`,
 			form
 		)
 		return response.data
 	}
 
-	delete = async (id: ParamId): Promise<ResponseSingleData<void>> => {
-		const response = await api.delete(`/hotel-amenities/categories/${id}`)
+	delete = async (
+		type: "hotel" | "room" = "hotel",
+		id: ParamId
+	): Promise<ResponseSingleData<void>> => {
+		const response = await api.delete(`/${type}-amenities/categories/${id}`)
 		return response.data
 	}
 
 	createAmenities = async (
+		type: "hotel" | "room" = "hotel",
 		categoryId: ParamId,
 		form: HotelAmenityChange
 	): Promise<ResponseSingleData<HotelAmenity>> => {
 		const response = await api.post(
-			`/hotel-amenities/categories/${categoryId}/amenities`,
+			`/${type}-amenities/categories/${categoryId}/amenities`,
 			form
 		)
 		return response.data
 	}
 
 	editAmenities = async (
+		type: "hotel" | "room" = "hotel",
 		form: Record<string, unknown>
 	): Promise<ResponseSingleData<HotelAmenity>> => {
 		const response = await api.put(
-			`/hotel-amenities/amenities/${form.id}`,
+			`/${type}-amenities/amenities/${form.id}`,
 			form
 		)
 		return response.data
 	}
 
-	deleteAmenities = async (id: ParamId): Promise<ResponseSingleData<void>> => {
-		const response = await api.delete(`/hotel-amenities/amenities/${id}`)
+	deleteAmenities = async (
+		type: "hotel" | "room" = "hotel",
+		id: ParamId
+	): Promise<ResponseSingleData<void>> => {
+		const response = await api.delete(`/${type}-amenities/amenities/${id}`)
 		return response.data
 	}
 }

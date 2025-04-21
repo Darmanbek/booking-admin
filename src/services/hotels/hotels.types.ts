@@ -78,6 +78,7 @@ export type HotelReview = {
 }
 
 export type HotelChange = {
+	id?: number
 	slug?: string
 	description: string
 	description_ru: string

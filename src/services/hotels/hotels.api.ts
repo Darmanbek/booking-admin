@@ -75,6 +75,15 @@ const useEditHotelsMutation = () => {
 	})
 }
 
+const useEditHotelsStatusMutation = () => {
+	return useCrudMutation({
+		mutationFn: hotelsService.editStatus,
+		invalidate: {
+			queryKey: ["hotels"]
+		}
+	})
+}
+
 const useDeleteHotelsImageBySlugMutation = (slug: ParamId) => {
 	return useCrudMutation({
 		mutationFn: (id: ParamId) => hotelsService.deleteImageBySlug(slug, id),
@@ -104,6 +113,7 @@ export {
 	useGetHotelsReviewsBySlugQuery,
 	useCreateHotelsMutation,
 	useEditHotelsMutation,
+	useEditHotelsStatusMutation,
 	useDeleteHotelsImageBySlugMutation,
 	useDeleteHotelsMutation
 }

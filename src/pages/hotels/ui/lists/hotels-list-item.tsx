@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router"
 import { Button, Card, Image, List, Rate, Switch, Typography } from "antd"
 import Flex from "antd/es/flex"
 import { type FC } from "react"
-import { type Hotel } from "src/services/hotels"
+import { type Hotel, useEditHotelsStatusMutation } from "src/services/hotels"
 import { formatNumber } from "src/shared/utils"
 
 const { Title, Text } = Typography
@@ -13,6 +13,8 @@ interface HotelsListItemProps {
 }
 
 const HotelsListItem: FC<HotelsListItemProps> = ({ data: hotel }) => {
+	const { mutate: editStatus, isPending } = useEditHotelsStatusMutation()
+
 	return (
 		<>
 			<Card
@@ -48,7 +50,12 @@ const HotelsListItem: FC<HotelsListItemProps> = ({ data: hotel }) => {
 									)}
 								</div>
 							</Flex>
-							<Switch />
+							<Switch
+								loading={isPending}
+								disabled={isPending}
+								value={hotel?.is_active}
+								onChange={() => editStatus({ id: hotel?.id })}
+							/>
 						</Flex>
 						<Flex justify={"space-between"} align={"end"}>
 							<Text strong={true} style={{ marginTop: 4, display: "block" }}>

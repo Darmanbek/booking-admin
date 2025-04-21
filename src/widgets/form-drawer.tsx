@@ -2,13 +2,14 @@ import { DeleteFilled } from "@ant-design/icons"
 import { Drawer, type DrawerProps, type FormInstance } from "antd"
 import Button from "antd/es/button"
 import Flex from "antd/es/flex"
-import { type FC, useCallback, useEffect, useRef } from "react"
+import { type FC, useCallback, useEffect } from "react"
 import { type FormKeys, useFormDevtoolsStore } from "src/shared/store"
 import { useShallow } from "zustand/react/shallow"
 
 interface FormDrawerProps extends DrawerProps {
 	form: FormInstance
 	formKey?: FormKeys
+	formKeys?: FormKeys[]
 	loading?: boolean
 	success?: boolean
 }
@@ -16,6 +17,7 @@ interface FormDrawerProps extends DrawerProps {
 const FormDrawer: FC<FormDrawerProps> = ({
 	form,
 	formKey = "main",
+	formKeys,
 	loading,
 	success,
 	...props
@@ -26,7 +28,6 @@ const FormDrawer: FC<FormDrawerProps> = ({
 		params,
 		formKey: storeKey
 	} = useFormDevtoolsStore(useShallow((state) => state))
-	const resetRef = useRef(resetParams)
 
 	const onCloseDrawer = useCallback(() => {
 		resetParams()
@@ -34,19 +35,17 @@ const FormDrawer: FC<FormDrawerProps> = ({
 	}, [resetParams, form])
 
 	useEffect(() => {
-		resetRef.current = resetParams
-	}, [resetParams])
-
-	useEffect(() => {
 		if (!loading && success) {
-			resetRef.current()
+			onCloseDrawer()
 			form.resetFields()
 		}
 	}, [form, loading, success])
 	return (
 		<Drawer
 			width={375}
-			open={open && storeKey === formKey}
+			open={
+				open && (formKeys ? formKeys?.includes(storeKey) : storeKey === formKey)
+			}
 			closeIcon={<DeleteFilled />}
 			title={params ? "Изменить" : "Добавить"}
 			onClose={onCloseDrawer}
@@ -58,8 +57,8 @@ const FormDrawer: FC<FormDrawerProps> = ({
 			}}
 			footer={
 				<Flex gap={8} justify={"end"}>
-					<Button>Отмена</Button>
-					<Button type={"primary"} onClick={form.submit}>
+					<Button onClick={onCloseDrawer}>Отмена</Button>
+					<Button loading={loading} type={"primary"} onClick={form.submit}>
 						Сохранить
 					</Button>
 				</Flex>

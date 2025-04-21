@@ -24,55 +24,60 @@ const useGetHotelAmenitiesQuery = (
 	})
 }
 
-const useCreateAmenitiesMutation = () => {
+const useCreateAmenitiesMutation = (type: "hotel" | "room" = "hotel") => {
 	return useCrudMutation({
-		mutationFn: amenitiesService.create,
+		mutationFn: (form: HotelAmenityChange) =>
+			amenitiesService.create(type, form),
 		invalidate: {
-			queryKey: ["amenities"]
+			queryKey: ["amenities", `${type}-amenities`]
 		}
 	})
 }
 
-const useEditAmenitiesMutation = () => {
+const useEditAmenitiesMutation = (type: "hotel" | "room" = "hotel") => {
 	return useCrudMutation({
-		mutationFn: amenitiesService.edit,
+		mutationFn: (form: HotelAmenityChange) => amenitiesService.edit(type, form),
 		invalidate: {
-			queryKey: ["amenities"]
+			queryKey: ["amenities", `${type}-amenities`]
 		}
 	})
 }
 
-const useDeleteAmenitiesMutation = () => {
+const useDeleteAmenitiesMutation = (type: "hotel" | "room" = "hotel") => {
 	return useCrudMutation({
-		mutationFn: amenitiesService.delete,
+		mutationFn: (id: ParamId) => amenitiesService.delete(type, id),
 		invalidate: {
-			queryKey: ["amenities"]
+			queryKey: ["amenities", `${type}-amenities`]
 		}
 	})
 }
 
-const useCreateHotelAmenitiesMutation = (categoryId: ParamId) => {
+const useCreateHotelAmenitiesMutation = (
+	type: "hotel" | "room" = "hotel",
+	categoryId: ParamId
+) => {
 	return useCrudMutation({
 		mutationFn: (variables: HotelAmenityChange) =>
-			amenitiesService.createAmenities(categoryId, variables),
+			amenitiesService.createAmenities(type, categoryId, variables),
 		invalidate: {
-			queryKey: ["amenities"]
+			queryKey: ["amenities", `${type}-amenities`]
 		}
 	})
 }
 
-const useEditHotelAmenitiesMutation = () => {
+const useEditHotelAmenitiesMutation = (type: "hotel" | "room" = "hotel") => {
 	return useCrudMutation({
-		mutationFn: amenitiesService.editAmenities,
+		mutationFn: (form: HotelAmenityChange) =>
+			amenitiesService.editAmenities(type, form),
 		invalidate: {
-			queryKey: ["amenities"]
+			queryKey: ["amenities", `${type}-amenities`]
 		}
 	})
 }
 
-const useDeleteHotelAmenitiesMutation = () => {
+const useDeleteHotelAmenitiesMutation = (type: "hotel" | "room" = "hotel") => {
 	return useCrudMutation({
-		mutationFn: amenitiesService.deleteAmenities,
+		mutationFn: (id: ParamId) => amenitiesService.deleteAmenities(type, id),
 		invalidate: {
 			queryKey: ["amenities"]
 		}

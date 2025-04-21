@@ -51,6 +51,13 @@ class HotelsService {
 		return response.data
 	}
 
+	editStatus = async (
+		form: Pick<HotelChange, "id">
+	): Promise<ResponseSingleData<Hotel>> => {
+		const response = await api.put(`/superuser/hotels/${form.id}/status`)
+		return response.data
+	}
+
 	deleteImageBySlug = async (
 		slug: ParamId,
 		id: ParamId

@@ -7,6 +7,7 @@ import { type FC } from "react"
 import { useGetHotelsBySlugQuery } from "src/services/hotels"
 import { useAuth, useToken, useTranslation } from "src/shared/hooks"
 import { Logo } from "src/widgets/logo"
+import { LangSelect } from "./lang-select"
 import { ProfileAvatar } from "./profile-avatar"
 
 interface HeaderProps {
@@ -51,11 +52,14 @@ const Header: FC<HeaderProps> = ({ auth }) => {
 					)}
 				</Space>
 
-				{isAuth || auth ? (
-					<Space>
-						<ProfileAvatar />
-					</Space>
-				) : null}
+				<Space>
+					<LangSelect />
+					{isAuth || auth ? (
+						<Space>
+							<ProfileAvatar />
+						</Space>
+					) : null}
+				</Space>
 			</Flex>
 		</LayoutHeader>
 	)
