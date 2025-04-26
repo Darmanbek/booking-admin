@@ -20,6 +20,7 @@ type ErrorMessage = {
 type ErrorRedirect = {
 	to: string
 	replace?: boolean
+	ignoreBlocking?: boolean
 }
 
 interface UseCrudQueryOptions<

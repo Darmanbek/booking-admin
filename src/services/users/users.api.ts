@@ -10,6 +10,11 @@ const useGetMeQuery = (params: GetParams = {}) => {
 	return useCrudQuery({
 		queryFn: () => usersService.getMe(params),
 		queryKey: ["users", ...Object.values(params)],
+		errorRedirect: {
+			to: "/auth/login",
+			replace: true,
+			ignoreBlocking: true
+		},
 		onError: () => {
 			auth.logout()
 			queryClient.removeQueries({
